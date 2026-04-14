@@ -1,0 +1,49 @@
+/* ═══ Reset ═══ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ═══ Base ═══ */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ═══ Header & Nav ═══ */
+header { background-color: #1e293b; }
+
+nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 { color: #e2e8f0; font-size: 20px; }
+
+/* ═══ Main ═══ */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+h2 { margin-bottom: 20px; color: #0f172a; }
+
+/* ═══ Hidden ═══ */
+.hidden { display: none; }
+
+/* TODO: style cards (white background, padding, border-radius, shadow) */
+
+/* TODO: style .card-grid (flexbox, wrap, gap) */
+
+/* TODO: style forms (inputs, labels, buttons) */
+
+/* TODO: style the delete button (red, small) */
+
+/* TODO: style error messages (red text) */
+
+/* TODO: add a media query for screens < 768px */
+/*       make cards stack vertically on mobile */

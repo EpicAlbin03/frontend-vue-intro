@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard — Vue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <nav>
+                <h1>Student Dashboard</h1>
+                <!-- TODO: when logged in, show username and a logout button -->
+                <!-- Hint: use v-if="isLoggedIn" -->
+            </nav>
+        </header>
+
+        <main>
+            <!-- Login Section -->
+            <!-- TODO: only show this when NOT logged in -->
+            <section>
+                <h2>Login</h2>
+                <!-- TODO: login error message with v-if -->
+                <!-- TODO: form with @submit.prevent="handleLogin" -->
+                <!-- TODO: v-model inputs for username and password -->
+                <!-- TODO: submit button -->
+            </section>
+
+            <!-- Dashboard Section -->
+            <!-- TODO: only show this when logged in -->
+            <section>
+                <h2>Students</h2>
+
+                <!-- TODO: search input with v-model -->
+
+                <!-- TODO: add student form -->
+                <!-- Fields: name, email, grade (select), course ID (number) -->
+                <!-- Use @submit.prevent and v-model on each input -->
+
+                <!-- TODO: loading message with v-if -->
+                <!-- TODO: empty state with v-else-if -->
+                <!-- TODO: student cards with v-for and v-else -->
+                <!-- Each card: name, email, grade, delete button -->
+
+                <div class="card-grid">
+                    <!-- Student cards rendered by Vue -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Student Platform</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
