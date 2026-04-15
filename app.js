@@ -20,6 +20,7 @@ createApp({
     let studentsError = ref("")
     let isLoading = ref(false)
     let searchTerm = ref("")
+    let sortStudentsOption = ref("name")
 
     let courses = ref([])
     let isLoadingCourses = ref(false)
@@ -30,13 +31,58 @@ createApp({
     let newGrade = ref("")
     let newCourseId = ref(-1)
 
-    const filteredStudents = computed(() => {
-      if (!searchTerm.value) {
-        return students.value
+    function getGradeSortValue(grade) {
+      const normalizedGrade = grade.trim().toUpperCase()
+      const baseGradeValues = {
+        A: 0,
+        B: 3,
+        C: 6,
+        D: 9,
+        F: 12,
       }
-      return students.value.filter((student) =>
-        student.name.toLowerCase().includes(searchTerm.value.toLowerCase()),
-      )
+
+      const baseGrade = normalizedGrade[0]
+      const modifier = normalizedGrade[1] ?? ""
+      const baseValue = baseGradeValues[baseGrade]
+
+      if (baseValue === undefined) {
+        return Number.MAX_SAFE_INTEGER
+      }
+      if (baseGrade === "F") {
+        return baseValue
+      }
+      if (modifier === "+") {
+        return baseValue
+      }
+      if (modifier === "-") {
+        return baseValue + 2
+      }
+      return baseValue + 1
+    }
+
+    const filteredStudents = computed(() => {
+      const normalizedSearchTerm = searchTerm.value.trim().toLowerCase()
+      const matchingStudents = normalizedSearchTerm
+        ? students.value.filter((student) =>
+            student.name.toLowerCase().includes(normalizedSearchTerm),
+          )
+        : students.value
+
+      if (sortStudentsOption.value === "name") {
+        return matchingStudents.sort((a, b) => a.name.localeCompare(b.name))
+      }
+
+      if (sortStudentsOption.value === "grade") {
+        return matchingStudents.sort((a, b) => {
+          const gradeDifference = getGradeSortValue(a.grade) - getGradeSortValue(b.grade)
+          if (gradeDifference === 0) {
+            return a.name.localeCompare(b.name)
+          }
+          return gradeDifference
+        })
+      }
+
+      return matchingStudents
     })
 
     const currentUsername = computed(() => {
@@ -224,6 +270,7 @@ createApp({
       studentsError,
       isLoading,
       searchTerm,
+      sortStudentsOption,
       courses,
       isLoadingCourses,
       coursesError,

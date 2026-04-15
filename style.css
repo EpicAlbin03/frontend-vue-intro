@@ -66,6 +66,16 @@ h2 {
   color: red;
 }
 
+.filter-students-container {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+}
+
+.filter-students-container input {
+  height: fit-content;
+}
+
 /* ═══ Cards ═══ */
 .card {
   background: #ffffff;

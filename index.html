@@ -59,7 +59,16 @@
             <button type="submit">New Student</button>
           </form>
 
-          <input type="text" v-model="searchTerm" placeholder="Search by name..." />
+          <div class="filter-students-container">
+            <input type="text" v-model="searchTerm" placeholder="Search by name..." />
+            <div>
+              <label for="sort-students">Sort by</label>
+              <select name="sort-students" v-model="sortStudentsOption">
+                <option value="name">Name</option>
+                <option value="grade">Grade</option>
+              </select>
+            </div>
+          </div>
 
           <p v-if="isLoading">Loading students...</p>
           <p v-else-if="studentsError" class="error">{{ studentsError }}</p>
