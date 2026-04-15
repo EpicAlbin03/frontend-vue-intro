@@ -57,6 +57,10 @@ h2 {
   color: #0f172a;
 }
 
+.error {
+  color: red;
+}
+
 /* ═══ Cards ═══ */
 .card {
   background: #ffffff;

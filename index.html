@@ -51,8 +51,8 @@
 
             <label for="course">Course</label>
             <p v-if="isLoadingCourses">Loading courses...</p>
-            <p v-else-if="courses.length < 1">No courses yet</p>
             <p v-else-if="coursesError" class="error">{{ coursesError }}</p>
+            <p v-else-if="courses.length < 1">No courses yet</p>
             <select v-else name="course" v-model="newCourseId">
               <option v-for="course in courses" :value="course.id">{{ course.name }}</option>
             </select>
@@ -61,6 +61,7 @@
           </form>
 
           <p v-if="isLoading">Loading students...</p>
+          <p v-else-if="studentsError" class="error">{{ studentsError }}</p>
           <p v-else-if="students.length < 1">No students yet</p>
           <div v-else class="card-grid">
             <div class="card" v-for="student in filteredStudents" :key="student.id">
