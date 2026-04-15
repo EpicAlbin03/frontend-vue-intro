@@ -38,7 +38,6 @@
         <section v-if="isLoggedIn">
           <h2>Students</h2>
 
-          <!-- TODO: search input with v-model -->
           <form @submit.prevent="addStudent" method="POST">
             <label for="name">Name</label>
             <input type="text" name="name" v-model="newName" />
@@ -59,6 +58,8 @@
 
             <button type="submit">New Student</button>
           </form>
+
+          <input type="text" v-model="searchTerm" placeholder="Search by name..." />
 
           <p v-if="isLoading">Loading students...</p>
           <p v-else-if="studentsError" class="error">{{ studentsError }}</p>

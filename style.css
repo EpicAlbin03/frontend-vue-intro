@@ -48,12 +48,17 @@ main {
   padding: 30px;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 section + section {
   margin-top: 24px;
 }
 
 h2 {
-  margin-bottom: 18px;
   color: #0f172a;
 }
 
@@ -68,6 +73,7 @@ h2 {
   border: 1px solid #e5e7eb;
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  max-width: 268px;
 }
 
 /* ═══ Card Grid ═══ */
@@ -75,7 +81,6 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
-  margin-top: 24px;
 }
 
 .card-grid > * {
