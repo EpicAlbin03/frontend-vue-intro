@@ -1,60 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Dashboard — Vue</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div id="app">
-        <header>
-            <nav>
-                <h1>Student Dashboard</h1>
-                <!-- TODO: when logged in, show username and a logout button -->
-                <!-- Hint: use v-if="isLoggedIn" -->
-            </nav>
-        </header>
+      <header>
+        <nav>
+          <h1>Student Dashboard</h1>
+          <div class="nav-user" v-if="isLoggedIn">
+            <p><b>Logged in as:</b> {{ currentUsername }}</p>
+            <button @click="logout">Logout</button>
+          </div>
+        </nav>
+      </header>
 
-        <main>
-            <!-- Login Section -->
-            <!-- TODO: only show this when NOT logged in -->
-            <section>
-                <h2>Login</h2>
-                <!-- TODO: login error message with v-if -->
-                <!-- TODO: form with @submit.prevent="handleLogin" -->
-                <!-- TODO: v-model inputs for username and password -->
-                <!-- TODO: submit button -->
-            </section>
+      <main>
+        <!-- Login Section -->
+        <section v-if="!isLoggedIn">
+          <h2>Login</h2>
+          <form @submit.prevent="handleLogin" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" v-model="username" />
 
-            <!-- Dashboard Section -->
-            <!-- TODO: only show this when logged in -->
-            <section>
-                <h2>Students</h2>
+            <label for="password">Password</label>
+            <input type="password" name="password" v-model="password" />
 
-                <!-- TODO: search input with v-model -->
+            <button type="submit">Login</button>
+          </form>
+          <p v-if="loginError" class="error">{{ loginError }}</p>
+        </section>
 
-                <!-- TODO: add student form -->
-                <!-- Fields: name, email, grade (select), course ID (number) -->
-                <!-- Use @submit.prevent and v-model on each input -->
+        <!-- Dashboard Section -->
+        <section v-if="isLoggedIn">
+          <h2>Students</h2>
 
-                <!-- TODO: loading message with v-if -->
-                <!-- TODO: empty state with v-else-if -->
-                <!-- TODO: student cards with v-for and v-else -->
-                <!-- Each card: name, email, grade, delete button -->
+          <!-- TODO: search input with v-model -->
+          <form @submit.prevent="addStudent" method="POST">
+            <label for="name">Name</label>
+            <input type="text" name="name" v-model="newName" />
 
-                <div class="card-grid">
-                    <!-- Student cards rendered by Vue -->
-                </div>
-            </section>
-        </main>
+            <label for="email">Email</label>
+            <input type="email" name="email" v-model="newEmail" />
 
-        <footer>
-            <p>&copy; 2026 Student Platform</p>
-        </footer>
+            <label for="grade">Grade</label>
+            <input type="text" name="grade" v-model="newGrade" />
+
+            <label for="course">Course</label>
+            <p v-if="isLoadingCourses">Loading courses...</p>
+            <p v-else-if="courses.length < 1">No courses yet</p>
+            <p v-else-if="coursesError" class="error">{{ coursesError }}</p>
+            <select v-else name="course" v-model="newCourseId">
+              <option v-for="course in courses" :value="course.id">{{ course.name }}</option>
+            </select>
+
+            <button type="submit">New Student</button>
+          </form>
+
+          <p v-if="isLoading">Loading students...</p>
+          <p v-else-if="students.length < 1">No students yet</p>
+          <div v-else class="card-grid">
+            <div class="card" v-for="student in filteredStudents" :key="student.id">
+              <p><b>Name:</b> {{ student.name }}</p>
+              <p><b>Email:</b> {{ student.email }}</p>
+              <p><b>Grade:</b> {{ student.grade }}</p>
+              <button @click="deleteStudent(student.id)" class="delete-btn">Delete</button>
+            </div>
+            <p v-if="studentsError" class="error">{{ studentsError }}</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2026 Student Platform</p>
+      </footer>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
