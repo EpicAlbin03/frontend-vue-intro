@@ -192,7 +192,12 @@ createApp({
       }
 
       courses.value = await res.json()
+      console.log(courses.value)
       isLoadingCourses.value = false
+    }
+
+    function getStudentsInCourse(courseId) {
+      return students.value.filter((student) => student.course === courseId)
     }
 
     async function addStudent() {
@@ -284,6 +289,7 @@ createApp({
       loadStudents,
       addStudent,
       deleteStudent,
+      getStudentsInCourse,
     }
   },
 }).mount("#app")

@@ -83,7 +83,7 @@ Open `index.html` directly in your browser.
 
 - [ ] **Edit student** — click a card to toggle an inline edit form
 - [x] **Sort** — buttons to sort students by name or grade
-- [ ] **Course list** — fetch and display courses with student count
+- [x] **Course list** — fetch and display courses with student count
 - [ ] **Error handling** — show messages for failed API calls or expired tokens
 - [x] **Composition API** — try rewriting the app using setup() and ref()
 

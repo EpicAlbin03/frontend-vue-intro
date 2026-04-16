@@ -36,9 +36,12 @@
 
         <!-- Dashboard Section -->
         <section v-if="isLoggedIn">
-          <h2>Students</h2>
+          <h2>Students ({{ students.length }})</h2>
 
+          <!-- Add Student -->
           <form @submit.prevent="addStudent" method="POST">
+            <h3>Add Student</h3>
+
             <label for="name">Name</label>
             <input type="text" name="name" v-model="newName" />
 
@@ -59,6 +62,7 @@
             <button type="submit">New Student</button>
           </form>
 
+          <!-- Filter -->
           <div class="filter-students-container">
             <input type="text" v-model="searchTerm" placeholder="Search by name..." />
             <div>
@@ -70,6 +74,7 @@
             </div>
           </div>
 
+          <!-- Students -->
           <p v-if="isLoading">Loading students...</p>
           <p v-else-if="studentsError" class="error">{{ studentsError }}</p>
           <p v-else-if="students.length < 1">No students yet</p>
@@ -81,6 +86,21 @@
               <button @click="deleteStudent(student.id)" class="delete-btn">Delete</button>
             </div>
             <p v-if="studentsError" class="error">{{ studentsError }}</p>
+          </div>
+
+          <!-- Courses -->
+          <h2>Courses ({{ courses.length }})</h2>
+          <p v-if="isLoadingCourses">Loading courses...</p>
+          <p v-else-if="coursesError" class="error">{{ coursesError }}</p>
+          <p v-else-if="courses.length < 1">No courses yet</p>
+          <div v-else class="card-grid">
+            <div class="card" v-for="course in courses" :key="course.id">
+              <p><b>Name:</b> {{ course.name }}</p>
+              <p><b>Code:</b> {{ course.code }}</p>
+              <p><b>Description:</b> {{ course.description }}</p>
+              <p><b>Students:</b> {{ getStudentsInCourse(course.id).length }}</p>
+            </div>
+            <p v-if="coursesError" class="error">{{ coursesError }}</p>
           </div>
         </section>
       </main>
