@@ -252,17 +252,45 @@ createApp({
       students.value = students.value.filter((student) => student.id !== id)
     }
 
+    function decodeJwtPayload(token) {
+      try {
+        const base64Url = token.split(".")[1]
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/")
+        const paddedBase64 = base64.padEnd(Math.ceil(base64.length / 4) * 4, "=")
+        return JSON.parse(atob(paddedBase64))
+      } catch {
+        return null
+      }
+    }
+
+    function isTokenExpired(token) {
+      const payload = decodeJwtPayload(token)
+
+      if (!payload?.exp) {
+        return true
+      }
+
+      return payload.exp * 1000 <= Date.now()
+    }
+
     onMounted(() => {
       const storedUser = getStoredUser()
 
-      if (storedUser?.access_token) {
-        user.value = storedUser
-        isLoggedIn.value = true
-        loadStudents()
-        loadSelectCourses()
-      } else {
+      if (!storedUser?.access_token) {
         logout()
+        return
       }
+
+      if (isTokenExpired(storedUser.access_token)) {
+        logout()
+        alert("Session expired. Please log in again.")
+        return
+      }
+
+      user.value = storedUser
+      isLoggedIn.value = true
+      loadStudents()
+      loadSelectCourses()
     })
 
     return {
