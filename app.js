@@ -196,7 +196,6 @@ createApp({
       }
 
       courses.value = await res.json()
-      console.log(courses.value)
       isLoadingCourses.value = false
     }
 
