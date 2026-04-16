@@ -147,6 +147,10 @@ createApp({
         access_token: "",
         refresh_token: "",
       }
+      students.value = []
+      studentsError.value = ""
+      courses.value = []
+      coursesError.value = ""
       isLoggedIn.value = false
     }
 
